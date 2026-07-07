@@ -227,16 +227,18 @@ Confirmed for M4A input. Client converts to AuthenticaError with status 302.
 
 ---
 
-## End-to-end proof (optional, costs ~1 credit)
+## Scripts
 
-To confirm your integration works before shipping:
+`scripts/verify-voice.ts` — compares two WAV files directly from disk. Use this to confirm the API accepts your audio and returns the expected result before wiring it into the app.
 
-1. Ask the dev for paths to two WAV recordings of the same person (registered + query).
-2. Read both as base64 (ensure WAV format — transcode M4A if needed).
-3. Call `verifyByVoice({ userId: "test-user", registeredAudio, queryAudio })`.
-4. Confirm `result.matched === true`.
+```bash
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-voice-verification/scripts/verify-voice.ts \
+  --registered path/to/reference.wav \
+  --query path/to/realtime.wav \
+  --user-id test-user
+```
 
-This costs 1 credit and runs a real biometric comparison.
+Prints `✓ Result: MATCH` or `Result: NO MATCH`. WAV only — M4A will error with a clear message. Cost: 1 credit per run.
 
 ---
 

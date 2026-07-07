@@ -172,16 +172,18 @@ Handled by the client's `redirect:'error'` setting.
 
 ---
 
-## End-to-end proof (optional, costs ~1 credit)
+## Scripts
 
-To confirm your integration works before shipping:
+`scripts/verify-face.ts` — compares two image files directly from disk. Use this to confirm the API accepts your images and returns the expected result before wiring it into the app.
 
-1. Ask the dev for a path to two face images of the same person (registered + query).
-2. Read both as base64 (no data URI prefix).
-3. Call `verifyByFace({ userId: "test-user", registeredFaceImage, queryFaceImage })`.
-4. Confirm `result.matched === true`.
+```bash
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-face-verification/scripts/verify-face.ts \
+  --registered path/to/reference.jpg \
+  --query path/to/realtime.jpg \
+  --user-id test-user
+```
 
-This costs 1 credit and runs a real biometric comparison.
+Prints `✓ Result: MATCH` or `Result: NO MATCH`. Accepts JPEG or PNG. Cost: 1 credit per run.
 
 ---
 

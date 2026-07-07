@@ -52,9 +52,18 @@ Read `references/client.ts` for the full source — it's the implementation to c
 
 ## Step 3 — Smoke test (do this before wiring anything else)
 
-Create `app/api/authentica-check/route.ts`:
+**Option A — run the script** (fastest, no app code needed):
+
+```bash
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-core/scripts/check-balance.ts
+```
+
+Expected output: `✓ API key valid` + your balance. If you see a 401 error, the key is wrong.
+
+**Option B — add a route** (keeps it in the app for teammates):
 
 ```typescript
+// app/api/authentica-check/route.ts
 import { checkBalance } from "@/lib/authentica/client";
 
 export async function GET() {
@@ -63,7 +72,19 @@ export async function GET() {
 }
 ```
 
-Visit `/api/authentica-check`. Expected response: `{"ok":true,"balance":"91.00"}` (your actual balance). If you see an `AuthenticaError`, the key is missing or wrong.
+Visit `/api/authentica-check`. Expected: `{"ok":true,"balance":"86.00"}`.
+
+---
+
+## Scripts
+
+`scripts/check-balance.ts` — standalone key validator. Run it any time you want to confirm the key is working or check remaining credits, without touching app code.
+
+```bash
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-core/scripts/check-balance.ts
+# or, if key is in .env.local:
+npx dotenv -e .env.local -- npx tsx .claude/skills/authentica-core/scripts/check-balance.ts
+```
 
 ---
 

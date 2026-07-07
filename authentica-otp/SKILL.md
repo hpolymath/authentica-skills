@@ -169,16 +169,21 @@ No JSON body. The `redirect:'error'` setting in the client converts this to an A
 
 ---
 
-## End-to-end proof (optional, costs ~1 credit)
+## Scripts
 
-To confirm the full flow works before shipping:
+`scripts/send-test-otp.ts` — sends a real OTP and interactively verifies it. Use this to confirm the full flow works before wiring it into the app.
 
-1. Ask the dev: "What phone number should I use for the OTP test?" and "Which channel — sms, whatsapp, or email?"
-2. Call `sendOtp({ method: "sms", phone: "+...", templateId: 1 })`.
-3. Ask the dev to read the code from their device and provide it.
-4. Call `verifyOtp({ phone: "+...", otp: "<code>" })` and confirm `verified: true`.
+```bash
+# SMS
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-otp/scripts/send-test-otp.ts \
+  --method sms --phone +966551234567
 
-This costs 1 credit and sends a real message. It's optional but confirms end-to-end delivery.
+# Email
+AUTHENTICA_API_KEY=your_key npx tsx .claude/skills/authentica-otp/scripts/send-test-otp.ts \
+  --method email --email you@example.com
+```
+
+The script sends the OTP, prompts for the code, verifies it, and prints `✓ Code verified` on success. Cost: 1 credit per run. Enter the code quickly — OTPs expire within ~2 minutes.
 
 ---
 

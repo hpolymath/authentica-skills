@@ -1,4 +1,10 @@
-.claude/settings.local.json
+.claude/
 .env.local
 .DS_Store
 node_modules/
+CHANGELOG.md
+eval-runs/
+research/
+versions/
+PROMPT.md
+samples/

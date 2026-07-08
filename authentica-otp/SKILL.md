@@ -60,6 +60,8 @@ Visit `/api/authentica-check`. If it returns `{"ok":true,"balance":"..."}`, the 
 
 ## Implementation
 
+**Before building an OTP flow, ask the developer which channel(s) to support — SMS, WhatsApp, email, or a choice of several.** It changes the UI and the required user input (phone vs. email). Do not silently default to SMS.
+
 ### Route handler: send OTP
 
 ```typescript
